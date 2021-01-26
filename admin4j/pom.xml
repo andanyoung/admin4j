@@ -6,6 +6,7 @@
     <modules>
         <module>admin-entity</module>
         <module>admin-sys</module>
+        <module>admin-common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,27 +16,66 @@
     </parent>
     <groupId>cn.andanyoung</groupId>
     <artifactId>admin4j</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>admin4j</name>
     <description>admin4j</description>
     <properties>
         <java.version>1.8</java.version>
+        <admin4j.common.version>0.0.1</admin4j.common.version>
+        <admin4j.entity.version>0.0.1</admin4j.entity.version>
+        <admin4j.sys.version>0.0.1</admin4j.sys.version>
     </properties>
     <dependencies>
+        <!--Spring Boot依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.andanyoung</groupId>
+                <artifactId>admin4j-sys</artifactId>
+                <version>${admin4j.sys.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.andanyoung</groupId>
+                <artifactId>admin4j-common</artifactId>
+                <version>${admin4j.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.andanyoung</groupId>
+                <artifactId>admin4j-entity</artifactId>
+                <version>${admin4j.entity.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -54,14 +94,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
