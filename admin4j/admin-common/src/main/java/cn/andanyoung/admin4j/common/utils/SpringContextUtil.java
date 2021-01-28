@@ -21,6 +21,10 @@ public class SpringContextUtil implements ApplicationContextAware {
     SpringContextUtil.applicationContext = applicationContext;
   }
 
+  public static boolean containsBean(String name) {
+    return getApplicationContext().containsBean(name);
+  }
+
   public static Object getBean(String name) {
     return getApplicationContext().getBean(name);
   }

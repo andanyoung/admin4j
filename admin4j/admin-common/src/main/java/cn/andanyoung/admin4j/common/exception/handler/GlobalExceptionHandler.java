@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -81,13 +82,12 @@ public class GlobalExceptionHandler {
           TypeMismatchException.class,
           HttpMessageNotReadableException.class,
           HttpMessageNotWritableException.class,
-          // BindException.class,
-          // MethodArgumentNotValidException.class
           HttpMediaTypeNotAcceptableException.class,
           ServletRequestBindingException.class,
           ConversionNotSupportedException.class,
           MissingServletRequestPartException.class,
-          AsyncRequestTimeoutException.class
+          AsyncRequestTimeoutException.class,
+          MultipartException.class
   })
   @ResponseBody
   public Response handleServletException(Exception e) {

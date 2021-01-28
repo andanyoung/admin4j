@@ -5,8 +5,8 @@ import cn.andanyoung.admin4j.common.utils.BodyReaderHttpServletRequestWrapper;
 import cn.andanyoung.admin4j.common.utils.HttpRequestUtils;
 import cn.andanyoung.admin4j.common.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class SignatureUtil {
   public static final String DEFAULT_Authorization_FIELD = "Authorization";
   public static final String DEFAULT_APPID_FIELD = "appId";
   public static final String DEFAULT_TIMESTAMP_FIELD = "timestamp";
-  public static final String DEFAULT_SIGN_FIELD = "timestamp";
+  public static final String DEFAULT_SIGN_FIELD = "sign";
 
   public static boolean check(ServletRequest req, String appSecret) throws IOException {
 
@@ -36,7 +36,8 @@ public class SignatureUtil {
     otherParam.put(DEFAULT_APPID_FIELD, request.getHeader(DEFAULT_APPID_FIELD));
     String timestamp = request.getHeader(DEFAULT_TIMESTAMP_FIELD);
 
-    if (Long.parseLong(timestamp) - System.currentTimeMillis() > MAX_INTERNAL) {
+
+    if (StringUtils.isEmpty(timestamp) || System.currentTimeMillis() - Long.parseLong(timestamp) > MAX_INTERNAL) {
       // 间隔时间 超过 MAX_INTERNAL////
       ResponseUtil.sendJSONResponse(ResponseEnum.SIGN_AUTH_TIME);
       return false;

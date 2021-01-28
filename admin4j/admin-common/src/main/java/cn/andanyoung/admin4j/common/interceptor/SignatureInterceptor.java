@@ -1,10 +1,10 @@
 package cn.andanyoung.admin4j.common.interceptor;
 
+import cn.andanyoung.admin4j.common.response.enums.ResponseEnum;
 import cn.andanyoung.admin4j.common.signature.SignatureUtil;
 import cn.andanyoung.admin4j.common.signature.annotation.SignatureAccess;
+import cn.andanyoung.admin4j.common.utils.ResponseUtil;
 import cn.andanyoung.admin4j.common.utils.SpringContextUtil;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,8 +16,6 @@ import java.util.List;
 /**
  * 签名拦截器
  */
-@Component
-@Order(1)
 public class SignatureInterceptor implements HandlerInterceptor {
 
   final static String SIGNATURE_WHITE_LIST_BEN_KEY = "signature_white_list";
@@ -44,14 +42,16 @@ public class SignatureInterceptor implements HandlerInterceptor {
       return false;
     }
     SignatureAccess classAnnotation = handlerMethod.getClass().getAnnotation(SignatureAccess.class);
-    if ((annotation != null && annotation.value())
-            || (classAnnotation != null && classAnnotation.value())) {
-      // 需要认证签名
-      return SignatureUtil.check(
-              request, getAppSecretByAppId(request.getHeader(SignatureUtil.DEFAULT_APPID_FIELD)));
+    if (classAnnotation != null && !classAnnotation.value()) {
+      return false;
     }
 
-    return false;
+    boolean check = SignatureUtil.check(
+            request, getAppSecretByAppId(request.getHeader(SignatureUtil.DEFAULT_APPID_FIELD)));
+    if (!check) {
+      ResponseUtil.sendJSONResponse(ResponseEnum.SIGN_AUTH);
+    }
+    return check;
   }
 
   public String getAppSecretByAppId(String appid) {
@@ -59,16 +59,19 @@ public class SignatureInterceptor implements HandlerInterceptor {
   }
 
   Boolean isInWhiteList(String uri) {
-    Object signatureWhiteListConfig = SpringContextUtil.getBean(SIGNATURE_WHITE_LIST_BEN_KEY);
-    if (signatureWhiteListConfig != null) {
 
-      List<String> signatureWhiteList = (List) signatureWhiteListConfig;
-      for (String pattern : signatureWhiteList) {
-        if (antMatchers.match(pattern, uri)) {
-          return true;
-        }
+    if (!SpringContextUtil.containsBean(SIGNATURE_WHITE_LIST_BEN_KEY)) {
+      return false;
+    }
+    Object signatureWhiteListConfig = SpringContextUtil.getBean(SIGNATURE_WHITE_LIST_BEN_KEY);
+
+    List<String> signatureWhiteList = (List) signatureWhiteListConfig;
+    for (String pattern : signatureWhiteList) {
+      if (antMatchers.match(pattern, uri)) {
+        return true;
       }
     }
+
     return false;
   }
 }

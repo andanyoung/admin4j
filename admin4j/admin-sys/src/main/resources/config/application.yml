@@ -1,6 +1,7 @@
 server:
   port: 8088
 
+
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -9,3 +10,13 @@ spring:
     password: 123456
   profiles:
     active: dev
+
+admin:
+  api:
+    sign:
+      enable:
+        false
+
+
+
+

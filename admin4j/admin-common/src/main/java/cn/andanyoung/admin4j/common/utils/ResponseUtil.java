@@ -56,7 +56,7 @@ public class ResponseUtil {
         httpResponse.setContentType("application/json; charset=utf-8");
         String responseStr = JsonUtil.toJson(responseResult);
         PrintWriter out = httpResponse.getWriter();
-        out.append(responseStr);
+        out.write(responseStr);
         out.flush();
         out.close();
     }
