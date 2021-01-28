@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class LocalDateConverter implements Converter<String, LocalDate> {
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public LocalDate convert(String source) {
@@ -25,7 +26,7 @@ public class LocalDateConverter implements Converter<String, LocalDate> {
         } else if (length > 11) {
             source = source.substring(0, 10);
         }
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         return LocalDate.parse(source, dateTimeFormatter);
     }
 }

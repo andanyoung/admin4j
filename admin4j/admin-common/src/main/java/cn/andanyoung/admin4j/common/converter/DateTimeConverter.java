@@ -14,11 +14,11 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class DateTimeConverter implements Converter<String, LocalDateTime> {
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public LocalDateTime convert(String source) {
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        
         return LocalDateTime.parse(source, dateTimeFormatter);
     }
 }
