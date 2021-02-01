@@ -10,12 +10,16 @@ spring:
     password: 123456
   profiles:
     active: dev
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
 
 admin:
   api:
     sign:
       enable:
-        true
+        false
 
 
 
