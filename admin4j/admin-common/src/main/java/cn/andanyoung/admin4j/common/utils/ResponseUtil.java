@@ -62,7 +62,16 @@ public class ResponseUtil {
     }
 
     public static void sendJSONResponse(IResponse responseEnum) throws IOException {
+        sendJSONResponse(responseEnum, null);
+    }
 
-        sendJSONResponse(json(responseEnum));
+    public static void sendJSONResponse(IResponse responseEnum, String message) throws IOException {
+
+        if (StringUtils.isEmpty(message)) {
+            sendJSONResponse(json(responseEnum));
+        } else {
+            sendJSONResponse(new Response(responseEnum.getCode(), message));
+        }
+
     }
 }

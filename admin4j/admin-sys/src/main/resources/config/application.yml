@@ -19,8 +19,25 @@ admin:
   api:
     sign:
       enable:
-        false
+        true
 
-
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /login
+      - /doc.html
+      - /api-docs-ext
+      - /downImg
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /druid/**
+      - /actuator/**
+      - /sso/**
+      - /v2/api-docs-ext
 
 

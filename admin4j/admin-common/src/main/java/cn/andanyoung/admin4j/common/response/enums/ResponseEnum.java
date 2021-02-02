@@ -16,6 +16,7 @@ public enum ResponseEnum implements BizAssert {
     SUCCESS(200, "SUCCESS"), // 成功
     FAIL(400, "fail"), // 失败
     FORBIDDEN(403, "permission denied"), // 权限不足
+    AuthFail(402, "username or password fail"), // 权限不足
     EXCEPTION(501, "fail"), // 失败
     UNAUTHORIZED(401, "Unauthenticated (wrong signature)"), // 未认证（签名错误）
     NOT_FOUND(404, "404"), // 接口不存在

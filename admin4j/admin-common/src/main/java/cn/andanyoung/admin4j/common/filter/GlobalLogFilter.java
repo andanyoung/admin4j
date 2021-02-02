@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
  * @date 2021/1/28 22:04
  */
 @Log4j2
-public class GlobalFilter implements Filter {
+public class GlobalLogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 

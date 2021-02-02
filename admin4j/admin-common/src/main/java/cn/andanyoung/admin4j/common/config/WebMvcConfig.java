@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,8 +20,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${admin.api.sign.enable:true}")
     private Boolean adminApiSignEnable;
-//    @Autowired
-//    SignatureInterceptor signatureInterceptor;
 
     @Bean
     @ConditionalOnMissingBean(SignatureInterceptor.class)
@@ -35,5 +34,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
         if (adminApiSignEnable) {
             registry.addInterceptor(SpringContextUtil.getBean(SignatureInterceptor.class));
         }
+    }
+
+    /**
+     * 解决跨域请求
+     *
+     * @return
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+//                .allowCredentials(true)
+                .allowedOrigins("*")
+                .allowedHeaders("*")
+                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                .maxAge(3600);
+
+        WebMvcConfigurer.super.addCorsMappings(registry);
     }
 }
