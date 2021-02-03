@@ -19,15 +19,13 @@ admin:
   api:
     sign:
       enable:
-        true
+        false
 
 secure:
   ignored:
     urls: #安全路径白名单
-      - /login
       - /doc.html
       - /api-docs-ext
-      - /downImg
       - /swagger-resources/**
       - /swagger/**
       - /**/v2/api-docs
