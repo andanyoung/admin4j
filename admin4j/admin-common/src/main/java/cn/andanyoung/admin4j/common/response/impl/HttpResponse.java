@@ -5,6 +5,7 @@ import cn.andanyoung.admin4j.common.response.IResponse;
 import cn.andanyoung.admin4j.common.response.enums.ResponseEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author andanyoung
@@ -37,6 +38,12 @@ public class HttpResponse extends Response {
      */
     public HttpResponse(ResponseEnum responseEnum, Object data) {
         super(responseEnum.getCode(), responseEnum.getMessage());
+        this.data = data;
+    }
+
+    public HttpResponse(ResponseEnum responseEnum, Object data, String message) {
+     
+        super(responseEnum.getCode(), StringUtils.isEmpty(message) ? responseEnum.getMessage() : message);
         this.data = data;
     }
 }

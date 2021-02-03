@@ -1,7 +1,10 @@
 package cn.andanyoung.admin4j.config.security.exceptionHandling;
 
 import cn.andanyoung.admin4j.common.response.enums.ResponseEnum;
+import cn.andanyoung.admin4j.common.response.impl.HttpResponse;
 import cn.andanyoung.admin4j.common.utils.ResponseUtil;
+import cn.andanyoung.admin4j.config.security.SysUserDetails;
+import cn.andanyoung.admin4j.config.security.jwt.JwtUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -21,6 +24,11 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-        ResponseUtil.sendJSONResponse(ResponseEnum.SUCCESS, "登录成功");
+
+        // 处理登入成功请求
+        SysUserDetails userDetails = (SysUserDetails) authentication.getPrincipal();
+        String token = JwtUtil.sign(userDetails.getUsername(), userDetails.getPassword());
+
+        ResponseUtil.sendJSONResponse(new HttpResponse(ResponseEnum.SUCCESS, token, "登录成功"));
     }
 }
