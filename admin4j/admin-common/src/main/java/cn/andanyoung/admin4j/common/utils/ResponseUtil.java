@@ -26,24 +26,11 @@ public class ResponseUtil {
         return new HttpResponse(ResponseEnum.SUCCESS, data);
     }
 
-    public static Response forbidden() {
-        return new HttpResponse(ResponseEnum.FORBIDDEN);
-    }
-
-    public static Response unauthorized() {
-        return new HttpResponse(ResponseEnum.UNAUTHORIZED);
-    }
-
     public static Response fail(String message) {
 
-        ResponseEnum fail = ResponseEnum.FAIL;
+        ResponseEnum fail = ResponseEnum.BIZ_FAIL;
         if (StringUtils.isNotEmpty(message)) fail.setMessage(message);
         return new HttpResponse(fail);
-    }
-
-    public static Response fail() {
-
-        return fail(null);
     }
 
     public static void sendJSONResponse(Response responseResult) throws IOException {

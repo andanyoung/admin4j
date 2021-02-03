@@ -1,6 +1,6 @@
 package cn.andanyoung.admin4j.common.exception.handler;
 
-import cn.andanyoung.admin4j.common.response.enums.ServletResponseEnum;
+import cn.andanyoung.admin4j.common.response.enums.ResponseEnum;
 import cn.andanyoung.admin4j.common.response.impl.Response;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,6 @@ public class NotFoundException implements ErrorController {
     @ResponseBody
     public Object error(HttpServletRequest request) {
 
-        return new Response(ServletResponseEnum.NoSuchRequestHandlingMethodException.getCode(), "api path not find");
+        return new Response(ResponseEnum.NoHandlerFoundException.getCode(), "api path not find");
     }
 }

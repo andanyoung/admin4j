@@ -4,7 +4,6 @@ import cn.andanyoung.admin4j.common.constant.enums.EnvEnum;
 import cn.andanyoung.admin4j.common.exception.BaseException;
 import cn.andanyoung.admin4j.common.exception.BizException;
 import cn.andanyoung.admin4j.common.response.enums.ResponseEnum;
-import cn.andanyoung.admin4j.common.response.enums.ServletResponseEnum;
 import cn.andanyoung.admin4j.common.response.impl.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
@@ -97,24 +96,28 @@ public class GlobalExceptionHandler {
       if (!requestURL.equals("/favicon.ico")) {
         log.error(e.getMessage(), e);
       }
-      return new Response(ResponseEnum.NOT_FOUND);
+      return new Response(ResponseEnum.NoHandlerFoundException);
     }
+
     log.error(e.getMessage(), e);
-    int code = ResponseEnum.INTERNAL_SERVER_ERROR.getCode();
+    int code = 0;
     try {
-      ServletResponseEnum servletExceptionEnum =
-              ServletResponseEnum.valueOf(e.getClass().getSimpleName());
-      code = servletExceptionEnum.getCode();
+      ResponseEnum responseEnum =
+              ResponseEnum.valueOf(e.getClass().getSimpleName());
+      code = responseEnum.getCode();
     } catch (IllegalArgumentException e1) {
       log.error(
               "class [{}] not defined in enum {}",
               e.getClass().getName(),
-              ServletResponseEnum.class.getName());
+              ResponseEnum.class.getName());
+      code = ResponseEnum.INTERNAL_SERVER_ERROR.getCode();
     }
 
     if (isShowDetailError()) {
       // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
-      return new Response(code, "服务器内部错误：" + System.currentTimeMillis());
+      long timestamp = System.currentTimeMillis();
+      log.error("[服务器内部错误] tag:{} message:{}", timestamp, e.getMessage());
+      return new Response(code, "服务器内部错误：" + timestamp);
     }
 
     return new Response(code, e.getMessage());

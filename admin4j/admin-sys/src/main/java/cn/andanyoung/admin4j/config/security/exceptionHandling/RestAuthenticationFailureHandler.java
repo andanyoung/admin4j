@@ -20,6 +20,6 @@ import java.io.IOException;
 public class RestAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        ResponseUtil.sendJSONResponse(ResponseEnum.FORBIDDEN, e.getMessage());
+        ResponseUtil.sendJSONResponse(ResponseEnum.AUTH_FORBIDDEN, e.getMessage());
     }
 }

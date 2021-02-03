@@ -25,6 +25,6 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     log.warn("url: " + request.getRequestURL().toString() + authException.getLocalizedMessage());
     ResponseUtil.sendJSONResponse(
-            ResponseEnum.UNAUTHORIZED.setMessage(authException.getLocalizedMessage()));
+            ResponseEnum.AUTH_UNAUTHORIZED.setMessage(authException.getLocalizedMessage()));
   }
 }
