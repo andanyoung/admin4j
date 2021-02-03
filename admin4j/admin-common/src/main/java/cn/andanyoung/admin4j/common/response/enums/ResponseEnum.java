@@ -49,11 +49,17 @@ public enum ResponseEnum implements BizAssert {
     Auth_USER_PWD_Fail(50440, "username or password fail"), // 用户名或者密码错误
     AUTH_FORBIDDEN(50403, "permission denied"), // 权限不足
     AUTH_UNAUTHORIZED(50401, "Unauthenticated"), // 未认证
+    AUTH_TOKEN_ILLEGAL(50410, "Illegal token"),//非法 token token解析失败
+    AUTH_TOKEN_INVALID(50411, "Invalid token"),//token 失效
+    AUTH_TOKEN_EXPIRES(50412, "token Expires"),//token 过期
+
 
     SIGN_AUTH(50600, "Interface signature failed seriously"), // 接口签名认真失败
+
     SIGN_AUTH_TIME(50601, "Interface signature failed seriously timeout"), // 接口签名认真失败 时间对不上
 
     METHOD_ARG_NOT_VALID(50707, "interface ARG error"), // 接口参数绑定认证失败
+
     METHOD_ARG_BIND_ERROR(50708, "interface ARG Bind error"), // 接口参数绑定失败
 
 
