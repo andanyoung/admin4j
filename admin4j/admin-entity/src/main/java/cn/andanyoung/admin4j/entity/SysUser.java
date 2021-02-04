@@ -34,6 +34,7 @@ public class SysUser implements Serializable {
      */
     private Integer status;
 
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     @TableField(fill = FieldFill.INSERT)

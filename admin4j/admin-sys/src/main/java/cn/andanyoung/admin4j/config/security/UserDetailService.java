@@ -1,5 +1,6 @@
 package cn.andanyoung.admin4j.config.security;
 
+import cn.andanyoung.admin4j.dao.SysRoleDao;
 import cn.andanyoung.admin4j.dao.SysUserDao;
 import cn.andanyoung.admin4j.entity.SysUser;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,6 +23,9 @@ public class UserDetailService implements UserDetailsService {
     @Resource
     SysUserDao sysUserDao;
 
+    @Resource
+    SysRoleDao sysRoleDao;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
@@ -32,6 +36,9 @@ public class UserDetailService implements UserDetailsService {
         if (ObjectUtils.isEmpty(sysUser)) {
             throw new UsernameNotFoundException("用户名或者密码错误");
         }
+
+        sysUser.setRoles(sysRoleDao.roles(sysUser.getUid()));
+        
         return new SysUserDetails(sysUser);
     }
 }

@@ -2,6 +2,7 @@ package cn.andanyoung.admin4j.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,9 +26,11 @@ public class SysRole implements Serializable {
      */
     private String nameZh;
 
+    @JsonIgnore
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @JsonIgnore
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 }
