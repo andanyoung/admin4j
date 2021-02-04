@@ -36,7 +36,7 @@ public class SysUserDetails implements org.springframework.security.core.userdet
 
     @Override
     public String getUsername() {
-        return sysUser.getPassword();
+        return sysUser.getName();
     }
 
     @Override

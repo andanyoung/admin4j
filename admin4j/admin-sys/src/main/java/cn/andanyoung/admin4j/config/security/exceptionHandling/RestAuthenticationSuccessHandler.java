@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * 认证成功时的回调
@@ -24,11 +25,13 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-
         // 处理登入成功请求
         SysUserDetails userDetails = (SysUserDetails) authentication.getPrincipal();
         String token = JwtUtil.sign(userDetails.getUsername(), userDetails.getPassword());
 
-        ResponseUtil.sendJSONResponse(new HttpResponse(ResponseEnum.SUCCESS, token, "登录成功"));
+        HashMap<String, String> data = new HashMap<>();
+        data.put("token", token);
+
+        ResponseUtil.sendJSONResponse(new HttpResponse(ResponseEnum.SUCCESS, data, "登录成功"));
     }
 }
