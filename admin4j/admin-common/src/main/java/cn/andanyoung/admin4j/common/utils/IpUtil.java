@@ -25,19 +25,28 @@ public class IpUtil {
       }
     }
     // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
-    if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()
-      // = 15
+    if (ipAddress != null && ipAddress.length() > 15) {
+      // "***.***.***.***".length() = 15
       if (ipAddress.indexOf(",") > 0) {
         ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
       }
     }
-    // ipAddress = this.getRequest().getRemoteAddr();
-
     return ipAddress;
   }
 
+  // 获取IP地址
+  public static Long getIpAddrNumber(HttpServletRequest request) {
+
+    try {
+      return ip2Number(getIpAddr(request));
+    } catch (UnknownHostException e) {
+      System.out.println(e.getMessage());
+      return 0L;
+    }
+  }
+
   // IP 转 Long
-  public static Long ip2int(String ip) {
+  public static Long ip2Number(String ip) {
     Long num = 0L;
     if (ip == null) {
       return num;
@@ -62,7 +71,7 @@ public class IpUtil {
   }
 
   // 将十进制整数形式转换成127.0.0.1形式的ip地址
-  public static String longToIP(long longIp) {
+  public static String numberToIP(long longIp) {
     StringBuffer sb = new StringBuffer("");
     // 直接右移24位
     sb.append(String.valueOf((longIp >>> 24)));

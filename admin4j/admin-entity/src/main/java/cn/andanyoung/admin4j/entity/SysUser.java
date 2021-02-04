@@ -1,5 +1,8 @@
 package cn.andanyoung.admin4j.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,6 +24,7 @@ public class SysUser implements Serializable {
 
     private String mobile;
 
+    @JsonIgnore
     private String password;
 
     private String avatarUrl;
@@ -29,7 +33,9 @@ public class SysUser implements Serializable {
      */
     private Integer status;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 }

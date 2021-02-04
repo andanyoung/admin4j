@@ -17,6 +17,7 @@ public class JwtUtil {
 
     // 过期时间5分钟
     private final static long EXPIRE_TIME = 5 * 60 * 1000;
+    public final static String TOKEN_PREFIX = "Bearer ";
 
     /**
      * 生成签名,5min后过期
@@ -29,7 +30,7 @@ public class JwtUtil {
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.create()
+            return TOKEN_PREFIX + JWT.create()
                     .withClaim("username", username)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);

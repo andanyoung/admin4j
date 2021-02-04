@@ -38,4 +38,8 @@ secure:
       - /sso/**
       - /v2/api-docs-ext
 
-
+mybatis-plus:
+  typeEnumsPackage: cn.andanyoung.admin4j.enums
+  global-config:
+    db-config:
+      id-type: auto

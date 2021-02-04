@@ -49,7 +49,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith(JwtUtil.TOKEN_PREFIX)) {
             return null;
         }
 
