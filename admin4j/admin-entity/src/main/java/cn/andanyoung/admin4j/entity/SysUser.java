@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (SysUser)实体类
@@ -32,6 +33,8 @@ public class SysUser implements Serializable {
      * 是否可用；0；可用
      */
     private Integer status;
+
+    private List<SysRole> roles;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
