@@ -1,11 +1,12 @@
 package cn.andanyoung.admin4j.controller;
 
-import cn.andanyoung.admin4j.config.security.SysUserDetails;
-import cn.andanyoung.admin4j.entity.SysUser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import cn.andanyoung.admin4j.services.impl.SysUserService;
+import cn.andanyoung.admin4j.vo.SysUserInfoVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author andanyoung
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys")
 public class SysUserController {
 
-    @GetMapping("userinfo")
-    public SysUser userInfo() {
+    @Resource
+    SysUserService sysUserService;
 
-        SysUserDetails userDetails = (SysUserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        return userDetails.getSysUser();
+    @GetMapping("userinfo")
+    public SysUserInfoVO userInfo() {
+
+        return sysUserService.getUserinfo();
     }
 }

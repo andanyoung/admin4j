@@ -20,14 +20,14 @@ public class SysUserLoginRecord implements Serializable {
     private static final long serialVersionUID = -83887678278120427L;
 
     private Integer id;
-    
+
     private Integer uid;
-    
+
     private long ip;
 
     /**
-    * 1: 账号密码；
-    */
+     * 1: 账号密码；
+     */
     private LoginTypeEnum loginType;
 
     private String userAgent;
@@ -36,7 +36,7 @@ public class SysUserLoginRecord implements Serializable {
     private Date createTime;
 
     public void setUserAgent(String userAgent) {
-        if(userAgent == null){
+        if (userAgent == null) {
             userAgent = "";
         }
         this.userAgent = userAgent;

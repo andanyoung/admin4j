@@ -15,6 +15,10 @@ spring:
       enabled: true
       additional-paths: src/main/java
 
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
 admin:
   api:
     sign:
@@ -43,3 +47,4 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+    banner: false

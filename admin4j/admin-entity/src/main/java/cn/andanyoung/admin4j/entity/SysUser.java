@@ -7,12 +7,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * (SysUser)实体类
  *
- * @author makejava
+ * @author andanyoung
  * @since 2021-02-02 00:34:05
  */
 @Data
@@ -33,9 +32,6 @@ public class SysUser implements Serializable {
      * 是否可用；0；可用
      */
     private Integer status;
-
-    @TableField(exist = false)
-    private List<SysRole> roles;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
