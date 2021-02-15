@@ -14,14 +14,34 @@ spring:
     restart:
       enabled: true
       additional-paths: src/main/java
+  redis:
+    database: 1
+    host: ${redis.host}
+    port: 6379
+    password: ${redis.password}
+    timeout: 10000ms
+
+    lettuce:
+      pool:
+        max-wait: 10000ms
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
 
-admin:
+admin4j:
   api:
     sign:
+      enable:
+        false
+  cache:
+    local:
+      enable:
+        false
+    distributed:
       enable:
         false
 

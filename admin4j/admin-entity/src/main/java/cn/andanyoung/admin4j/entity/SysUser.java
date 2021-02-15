@@ -2,6 +2,7 @@ package cn.andanyoung.admin4j.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 public class SysUser implements Serializable {
     private static final long serialVersionUID = -29914608731717613L;
 
+    @TableId
     private Integer uid;
 
     private String name;

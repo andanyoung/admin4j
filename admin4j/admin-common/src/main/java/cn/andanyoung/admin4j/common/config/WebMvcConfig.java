@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Value("${admin.api.sign.enable:true}")
+    @Value("${admin4j.api.sign.enable:true}")
     private Boolean adminApiSignEnable;
 
     @Bean
