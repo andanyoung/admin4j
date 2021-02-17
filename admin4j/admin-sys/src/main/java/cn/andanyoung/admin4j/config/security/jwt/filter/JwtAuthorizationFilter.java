@@ -1,11 +1,11 @@
 package cn.andanyoung.admin4j.config.security.jwt.filter;
 
+import cn.andanyoung.admin4j.config.security.SysUserDetails;
 import cn.andanyoung.admin4j.config.security.jwt.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -55,13 +55,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         String token = header.split(" ")[1];
         String username = JwtUtil.getUsername(token);
-        UserDetails userDetails = null;
+        SysUserDetails userDetails = null;
         try {
-            userDetails = userDetailsService.loadUserByUsername(username);
+            userDetails =(SysUserDetails) userDetailsService.loadUserByUsername(username);
         } catch (UsernameNotFoundException e) {
             return null;
         }
-        if (!JwtUtil.verify(token, username, userDetails.getPassword())) {
+        if (!JwtUtil.verify(token, username, userDetails.getSysUser().getJwtSecret())) {
             return null;
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

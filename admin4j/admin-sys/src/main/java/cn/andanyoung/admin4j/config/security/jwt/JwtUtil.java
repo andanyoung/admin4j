@@ -15,8 +15,10 @@ import java.util.Date;
  */
 public class JwtUtil {
 
-    // 过期时间5分钟
-    private final static long EXPIRE_TIME = 5 * 60 * 1000;
+    /**
+     * 过期时间5分钟
+      */
+    private final static long EXPIRE_TIME = 24 * 60 * 60 * 1000;
     public final static String TOKEN_PREFIX = "Bearer ";
 
     /**

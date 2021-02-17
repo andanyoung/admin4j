@@ -35,6 +35,9 @@ public class SysUser implements Serializable {
      */
     private Integer status;
 
+    @JsonIgnore
+    private String jwtSecret;
+
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 

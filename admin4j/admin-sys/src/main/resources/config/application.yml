@@ -68,3 +68,4 @@ mybatis-plus:
     db-config:
       id-type: auto
     banner: false
+  mapper-locations: classpath:mappers:mapper/*.xml

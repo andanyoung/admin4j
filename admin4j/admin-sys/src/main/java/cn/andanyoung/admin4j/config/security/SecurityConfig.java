@@ -41,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     IgnoreUrlsConfig ignoreUrlsConfig;
 
+    @Autowired
+    RestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -52,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     JwtUsernamePasswordAuthenticationFilter jwtUsernamePasswordAuthenticationFilter() throws Exception {
         JwtUsernamePasswordAuthenticationFilter authenticationFilter = new JwtUsernamePasswordAuthenticationFilter();
-        authenticationFilter.setAuthenticationSuccessHandler(new RestAuthenticationSuccessHandler());
+        authenticationFilter.setAuthenticationSuccessHandler(restAuthenticationSuccessHandler);
         authenticationFilter.setAuthenticationFailureHandler(new RestAuthenticationFailureHandler());
         authenticationFilter.setAuthenticationManager(authenticationManagerBean());
         return authenticationFilter;

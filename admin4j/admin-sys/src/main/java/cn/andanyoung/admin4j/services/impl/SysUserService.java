@@ -10,6 +10,7 @@ import cn.andanyoung.admin4j.services.SysRoleService;
 import cn.andanyoung.admin4j.vo.SysUserInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,5 +67,21 @@ public class SysUserService implements UserDetailsService {
         sysUserInfoVO.setRoles(roles);
         sysUserInfoVO.setMenus(menus);
         return sysUserInfoVO;
+    }
+
+    /**
+     * 登出
+     */
+    public void logout(){
+
+        SysUserDetails userDetails = (SysUserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Integer uid = userDetails.getSysUser().getUid();
+
+        SysUser sysUser = new SysUser();
+        sysUser.setUid(uid);
+        sysUser.setJwtSecret(RandomStringUtils.randomAlphanumeric(6));
+        sysUserDao.updateById(sysUser);
     }
 }

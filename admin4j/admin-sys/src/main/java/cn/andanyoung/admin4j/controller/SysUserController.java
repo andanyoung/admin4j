@@ -25,4 +25,10 @@ public class SysUserController {
 
         return sysUserService.getUserinfo();
     }
+
+    @GetMapping("logout")
+    public void userLogout() {
+
+        sysUserService.logout();
+    }
 }
