@@ -14,7 +14,7 @@
         <version>2.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.andanyoung</groupId>
+    <groupId>andanyoung</groupId>
     <artifactId>admin4j</artifactId>
     <version>0.0.1</version>
     <name>admin4j</name>
@@ -62,17 +62,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>cn.andanyoung</groupId>
+                <groupId>andanyoung</groupId>
                 <artifactId>admin4j-sys</artifactId>
                 <version>${admin4j.sys.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.andanyoung</groupId>
+                <groupId>andanyoung</groupId>
                 <artifactId>admin4j-common</artifactId>
                 <version>${admin4j.common.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.andanyoung</groupId>
+                <groupId>andanyoung</groupId>
                 <artifactId>admin4j-entity</artifactId>
                 <version>${admin4j.entity.version}</version>
             </dependency>

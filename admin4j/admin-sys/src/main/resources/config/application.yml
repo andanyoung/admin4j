@@ -16,9 +16,9 @@ spring:
       additional-paths: src/main/java
   redis:
     database: 1
-    host: ${redis.host}
+    host: 127.0.0.1
     port: 6379
-    password: ${redis.password}
+    password: 123456
     timeout: 10000ms
 
     lettuce:
@@ -37,13 +37,13 @@ admin4j:
     sign:
       enable:
         false
-  cache:
-    local:
-      enable:
-        false
-    distributed:
-      enable:
-        false
+#  cache:
+#    local:
+#      enable:
+#        true
+#    distributed:
+#      enable:
+#        true
 
 secure:
   ignored:
@@ -63,7 +63,7 @@ secure:
       - /v2/api-docs-ext
 
 mybatis-plus:
-  typeEnumsPackage: cn.andanyoung.admin4j.enums
+  typeEnumsPackage: andanyoung.admin4j.enums
   global-config:
     db-config:
       id-type: auto

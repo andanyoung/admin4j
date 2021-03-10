@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>admin4j</artifactId>
-        <groupId>cn.andanyoung</groupId>
+        <groupId>andanyoung</groupId>
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,11 +14,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.andanyoung</groupId>
+            <groupId>andanyoung</groupId>
             <artifactId>admin4j-entity</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.andanyoung</groupId>
+            <groupId>andanyoung</groupId>
             <artifactId>admin4j-common</artifactId>
         </dependency>
         <dependency>

@@ -1,7 +1,7 @@
-package cn.andanyoung.admin4j.services.impl;
+package andanyoung.admin4j.services.impl;
 
-import cn.andanyoung.admin4j.services.SysMenuService;
-import cn.andanyoung.admin4j.dto.SysMenuDTO;
+import andanyoung.admin4j.services.SysMenuService;
+import andanyoung.admin4j.dto.SysMenuDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
