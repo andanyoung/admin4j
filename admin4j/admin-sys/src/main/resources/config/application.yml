@@ -51,8 +51,8 @@ secure:
       - /doc.html
       - /api-docs-ext
       - /swagger-resources/**
-      - /swagger/**
-      - /**/v2/api-docs
+      - /swagger-ui/**
+      - /v2/api-docs
       - /**/*.js
       - /**/*.css
       - /**/*.png
@@ -60,7 +60,6 @@ secure:
       - /druid/**
       - /actuator/**
       - /sso/**
-      - /v2/api-docs-ext
 
 mybatis-plus:
   typeEnumsPackage: andanyoung.admin4j.enums
@@ -69,3 +68,10 @@ mybatis-plus:
       id-type: auto
     banner: false
   mapper-locations: classpath:mappers:mapper/*.xml
+
+#  enableSwagger
+springfox:
+  documentation:
+    enabled: true
+    swagger-ui:
+      enabled: false

@@ -4,6 +4,8 @@ import andanyoung.admin4j.common.constant.annotations.GlobalResponseResult;
 import andanyoung.admin4j.common.response.IResponse;
 import andanyoung.admin4j.common.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,35 +27,54 @@ import java.lang.annotation.Annotation;
 @RestControllerAdvice
 public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
-    private static final Class<? extends Annotation> ANNOTATION_TYPE = GlobalResponseResult.class;
+  private static final Class<? extends Annotation> ANNOTATION_TYPE = GlobalResponseResult.class;
 
-    @Override
-    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+  @Value("${springfox.documentation.enabled}")
+  private Boolean enableSwagger = true;
 
-        GlobalResponseResult annotationMethod =
-                (GlobalResponseResult) methodParameter.getContainingClass().getAnnotation(ANNOTATION_TYPE);
-        GlobalResponseResult annotationClass =
-                (GlobalResponseResult) aClass.getAnnotation(ANNOTATION_TYPE);
-        if (annotationClass == null && annotationMethod == null) {
-            //没有注解默认不返回
-            return true;
-        } else if ((annotationMethod != null && annotationMethod.value())
-                || (annotationClass != null && annotationClass.value())) {
-            return true;
-        }
-        return false;
+  @Override
+  public boolean supports(
+      MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+
+    GlobalResponseResult annotationMethod =
+        (GlobalResponseResult) methodParameter.getContainingClass().getAnnotation(ANNOTATION_TYPE);
+    GlobalResponseResult annotationClass =
+        (GlobalResponseResult) aClass.getAnnotation(ANNOTATION_TYPE);
+    if (annotationClass == null && annotationMethod == null) {
+      // 没有注解默认不返回
+      return true;
+    } else if ((annotationMethod != null && annotationMethod.value())
+        || (annotationClass != null && annotationClass.value())) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public Object beforeBodyWrite(
+      Object o,
+      MethodParameter methodParameter,
+      MediaType mediaType,
+      Class<? extends HttpMessageConverter<?>> aClass,
+      ServerHttpRequest serverHttpRequest,
+      ServerHttpResponse serverHttpResponse) {
+
+    /** 这里需要排除 Swagger 的返回 */
+    if (enableSwagger) {
+      String packageName = o.getClass().getPackage().getName();
+      String path = serverHttpRequest.getURI().getPath();
+      if (StringUtils.startsWith(path, "/swagger-resources")) {
+        return o;
+      }
+      if (StringUtils.startsWith(packageName, "springfox.")) {
+        return o;
+      }
     }
 
-    @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-
-
-        if (o instanceof IResponse) {
-            return o;
-        } else {
-            return ResponseUtil.success(o);
-        }
+    if (o instanceof IResponse) {
+      return o;
+    } else {
+      return ResponseUtil.success(o);
     }
-
-
+  }
 }
